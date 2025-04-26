@@ -3,16 +3,12 @@
 namespace Pvtl\VoyagerPages\Commands;
 
 use Pvtl\VoyagerPages\Providers\PagesServiceProvider;
-use TCG\Voyager\Traits\Seedable;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 class InstallCommand extends Command
 {
-    use Seedable;
-
-    protected $seedersPath = __DIR__ . '/../../database/seeds/';
 
     /**
      * The console command name.
@@ -62,12 +58,6 @@ class InstallCommand extends Command
         $process = new Process([$composer, 'dump-autoload']);
         $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setWorkingDirectory(base_path())->mustRun();
-
-        $this->info('Migrating the database tables into your application');
-        $this->call('migrate');
-
-        $this->info('Seeding data into the database');
-        $this->seed('PagesDatabaseSeeder');
 
         $this->info('Successfully installed Voyager Pages! Enjoy');
     }
