@@ -22,7 +22,6 @@ class PagesServiceProvider extends ServiceProvider
         $this->strapRoutes();
         $this->strapPublishers();
         $this->strapViews();
-        $this->strapMigrations();
         $this->strapCommands();
     }
 
@@ -33,7 +32,7 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(PagesEventServiceProvider::class);
+        //
     }
 
     /**
@@ -59,20 +58,6 @@ class PagesServiceProvider extends ServiceProvider
     {
         // Load views
         $this->loadViewsFrom(self::PACKAGE_DIR . 'resources/views', 'voyager-pages');
-    }
-
-    /**
-     * Bootstrap our Migrations
-     */
-    protected function strapMigrations()
-    {
-        // Load migrations
-        $this->loadMigrationsFrom(self::PACKAGE_DIR . 'database/migrations');
-
-        // Locate our factories for testing
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(
-            self::PACKAGE_DIR . 'database/factories'
-        );
     }
 
     /**
